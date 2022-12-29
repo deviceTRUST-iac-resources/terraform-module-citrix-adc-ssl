@@ -3,8 +3,8 @@ resource "citrixadc_sslparameter" "ssl_enable_sslprofiles" {
 }
 
 # Add and configure Cipher Group for FE TLS 1.2 and 1.3 use
-resource "citrixadc_sslcipher" "ssl_cg_democloud_fe_TLS1213" {
-  ciphergroupname = "ssl_cg_democloud_fe_TLS1213"
+resource "citrixadc_sslcipher" "ssl_cg_fe_TLS1213" {
+  ciphergroupname = "ssl_cg_${var.adc-base.environmentname}_fe_TLS1213"
 
   ciphersuitebinding {
     ciphername     = "TLS1.3-CHACHA20-POLY1305-SHA256"
@@ -41,8 +41,8 @@ resource "citrixadc_sslcipher" "ssl_cg_democloud_fe_TLS1213" {
 }
 
 # Add and configure Cipher Group for FE TLS 1.3 only use
-resource "citrixadc_sslcipher" "ssl_cg_democloud_fe_TLS13" {
-  ciphergroupname = "ssl_cg_democloud_fe_TLS13"
+resource "citrixadc_sslcipher" "ssl_cg_fe_TLS13" {
+  ciphergroupname = "ssl_cg_${var.adc-base.environmentname}_fe_TLS13"
 
   ciphersuitebinding {
     ciphername     = "TLS1.3-CHACHA20-POLY1305-SHA256"
@@ -63,8 +63,8 @@ resource "citrixadc_sslcipher" "ssl_cg_democloud_fe_TLS13" {
 }
 
 # Add and configure Cipher Group for BE TLS 1.2 use
-resource "citrixadc_sslcipher" "ssl_cg_democloud_be_TLS12" {
-  ciphergroupname = "ssl_cg_democloud_be_TLS12"
+resource "citrixadc_sslcipher" "ssl_cg_be_TLS12" {
+  ciphergroupname = "ssl_cg_${var.adc-base.environmentname}_be_TLS12"
 
   ciphersuitebinding {
     ciphername     = "TLS1.2-ECDHE-ECDSA-AES256-GCM-SHA384"
@@ -104,8 +104,8 @@ resource "citrixadc_sslcipher" "ssl_cg_democloud_be_TLS12" {
   ]
 }
 
-resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_1213" {
-  name = "ssl_prof_democloud_fe_TLS1213"
+resource "citrixadc_sslprofile" "ssl_prof_fe_1213" {
+  name = "ssl_prof_${var.adc-base.environmentname}_fe_TLS1213"
 
   denysslreneg = "NONSECURE"
   ersa         = "DISABLED"
@@ -117,7 +117,7 @@ resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_1213" {
   tls13        = "ENABLED"
 
   cipherbindings {
-    ciphername     = "ssl_cg_democloud_fe_TLS1213"
+    ciphername     = "ssl_cg_${var.adc-base.environmentname}_fe_TLS1213"
     cipherpriority = 10
   }
 
@@ -129,12 +129,12 @@ resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_1213" {
   ]
 
   depends_on = [
-    citrixadc_sslcipher.ssl_cg_democloud_fe_TLS1213
+    citrixadc_sslcipher.ssl_cg_fe_TLS1213
   ]
 }
 
-resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_1213_SNI" {
-  name = "ssl_prof_democloud_fe_TLS1213_SNI"
+resource "citrixadc_sslprofile" "ssl_prof_fe_1213_SNI" {
+  name = "ssl_prof_${var.adc-base.environmentname}_fe_TLS1213_SNI"
 
   denysslreneg = "NONSECURE"
   ersa         = "DISABLED"
@@ -147,7 +147,7 @@ resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_1213_SNI" {
   snienable    = "ENABLED" 
 
   cipherbindings {
-    ciphername     = "ssl_cg_democloud_fe_TLS1213"
+    ciphername     = "ssl_cg_${var.adc-base.environmentname}_fe_TLS1213"
     cipherpriority = 10
   }
 
@@ -159,12 +159,12 @@ resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_1213_SNI" {
   ]
 
   depends_on = [
-    citrixadc_sslcipher.ssl_cg_democloud_fe_TLS1213
+    citrixadc_sslcipher.ssl_cg_fe_TLS1213
   ]
 }
 
-resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_13" {
-  name = "ssl_prof_democloud_fe_TLS13"
+resource "citrixadc_sslprofile" "ssl_prof_fe_13" {
+  name = "ssl_prof_${var.adc-base.environmentname}_fe_TLS13"
 
   denysslreneg = "NONSECURE"
   ersa         = "DISABLED"
@@ -176,7 +176,7 @@ resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_13" {
   tls13        = "ENABLED"
 
   cipherbindings {
-    ciphername     = "ssl_cg_democloud_fe_TLS13"
+    ciphername     = "ssl_cg_${var.adc-base.environmentname}_fe_TLS13"
     cipherpriority = 10
   }
 
@@ -188,12 +188,12 @@ resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_13" {
   ]
 
   depends_on = [
-    citrixadc_sslcipher.ssl_cg_democloud_fe_TLS13
+    citrixadc_sslcipher.ssl_cg_fe_TLS13
   ]
 }
 
-resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_13_SNI" {
-  name = "ssl_prof_democloud_fe_TLS13_SNI"
+resource "citrixadc_sslprofile" "ssl_prof_fe_13_SNI" {
+  name = "ssl_prof_${var.adc-base.environmentname}_fe_TLS13_SNI"
 
   denysslreneg = "NONSECURE"
   ersa         = "DISABLED"
@@ -206,7 +206,7 @@ resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_13_SNI" {
   snienable    = "ENABLED" 
 
   cipherbindings {
-    ciphername     = "ssl_cg_democloud_fe_TLS13"
+    ciphername     = "ssl_cg_${var.adc-base.environmentname}_fe_TLS13"
     cipherpriority = 10
   }
 
@@ -218,12 +218,12 @@ resource "citrixadc_sslprofile" "ssl_prof_democloud_fe_13_SNI" {
   ]
 
   depends_on = [
-    citrixadc_sslcipher.ssl_cg_democloud_fe_TLS13
+    citrixadc_sslcipher.ssl_cg_fe_TLS13
   ]
 }
 
-resource "citrixadc_sslprofile" "ssl_prof_democloud_be_12" {
-  name = "ssl_prof_democloud_be_TLS12"
+resource "citrixadc_sslprofile" "ssl_prof_be_12" {
+  name = "ssl_prof_${var.adc-base.environmentname}_be_TLS12"
 
   denysslreneg   = "NONSECURE"
   ersa           = "DISABLED"
@@ -235,7 +235,7 @@ resource "citrixadc_sslprofile" "ssl_prof_democloud_be_12" {
   tls12          = "ENABLED"
 
   cipherbindings {
-    ciphername     = "ssl_cg_democloud_be_TLS12"
+    ciphername     = "ssl_cg_${var.adc-base.environmentname}_be_TLS12"
     cipherpriority = 10
   }
 
@@ -247,7 +247,7 @@ resource "citrixadc_sslprofile" "ssl_prof_democloud_be_12" {
   ]
 
   depends_on = [
-    citrixadc_sslcipher.ssl_cg_democloud_be_TLS12
+    citrixadc_sslcipher.ssl_cg_be_TLS12
   ]     
 }
 
@@ -260,11 +260,11 @@ resource "citrixadc_nsconfig_save" "ssl_save" {
     timestamp = timestamp()
 
   depends_on = [
-    citrixadc_sslcipher.ssl_cg_democloud_fe_TLS1213,
-    citrixadc_sslcipher.ssl_cg_democloud_fe_TLS13,
-    citrixadc_sslcipher.ssl_cg_democloud_be_TLS12,
-    citrixadc_sslprofile.ssl_prof_democloud_fe_1213,
-    citrixadc_sslprofile.ssl_prof_democloud_fe_13,
-    citrixadc_sslprofile.ssl_prof_democloud_be_12
+    citrixadc_sslcipher.ssl_cg_fe_TLS1213,
+    citrixadc_sslcipher.ssl_cg_fe_TLS13,
+    citrixadc_sslcipher.ssl_cg_be_TLS12,
+    citrixadc_sslprofile.ssl_prof_fe_1213,
+    citrixadc_sslprofile.ssl_prof_fe_13,
+    citrixadc_sslprofile.ssl_prof_be_12
   ]
 }
