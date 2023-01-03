@@ -1,3 +1,13 @@
+#####
+# Wait for the previous module to be executed properly, before allowing the subsequent module to run.
+#####
+
+resource "time_sleep" "ssl_wait" {
+
+  create_duration = "5s"
+
+}
+
 resource "citrixadc_sslparameter" "ssl_enable_sslprofiles" {    
   defaultprofile = "ENABLED"
 }
@@ -267,19 +277,4 @@ resource "citrixadc_nsconfig_save" "ssl_save" {
     citrixadc_sslprofile.ssl_prof_fe_13,
     citrixadc_sslprofile.ssl_prof_be_12
   ]
-}
-
-#####
-# Wait for config save to commence properly, before allowing the subsequent module to run.
-#####
-
-
-resource "time_sleep" "ssl_wait" {
-
-  create_duration = "5s"
-
-  depends_on = [
-    citrixadc_nsconfig_save.ssl_save
-  ]
-
 }
