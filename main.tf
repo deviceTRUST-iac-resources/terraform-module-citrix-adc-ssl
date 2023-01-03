@@ -1,13 +1,3 @@
-#####
-# Wait for the previous module to be executed properly, before allowing the subsequent module to run.
-#####
-
-resource "time_sleep" "ssl_wait" {
-
-  create_duration = "5s"
-
-}
-
 resource "citrixadc_sslparameter" "ssl_enable_sslprofiles" {    
   defaultprofile = "ENABLED"
 }
