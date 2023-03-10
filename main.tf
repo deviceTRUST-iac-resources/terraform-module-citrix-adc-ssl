@@ -45,7 +45,6 @@ resource "citrixadc_sslcipher" "ssl_cg_fe_TLS1213" {
   ]
 }
 
-# Add and configure Cipher Group for FE TLS 1.3 only use
 resource "citrixadc_sslcipher" "ssl_cg_fe_TLS13" {
   ciphergroupname = "ssl_cg_${var.adc-base.environmentname}_fe_TLS13"
 
@@ -67,7 +66,6 @@ resource "citrixadc_sslcipher" "ssl_cg_fe_TLS13" {
   ]
 }
 
-# Add and configure Cipher Group for BE TLS 1.2 use
 resource "citrixadc_sslcipher" "ssl_cg_be_TLS12" {
   ciphergroupname = "ssl_cg_${var.adc-base.environmentname}_be_TLS12"
 
