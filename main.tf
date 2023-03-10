@@ -1,8 +1,13 @@
+#####
+# Enable SSL Parameter Usage
+#####
 resource "citrixadc_sslparameter" "ssl_enable_sslprofiles" {    
   defaultprofile = "ENABLED"
 }
 
-# Add and configure Cipher Group for FE TLS 1.2 and 1.3 use
+#####
+# SSL Cipher Groups
+#####
 resource "citrixadc_sslcipher" "ssl_cg_fe_TLS1213" {
   ciphergroupname = "ssl_cg_${var.adc-base.environmentname}_fe_TLS1213"
 
@@ -104,6 +109,9 @@ resource "citrixadc_sslcipher" "ssl_cg_be_TLS12" {
   ]
 }
 
+#####
+# SSL Profiles
+#####
 resource "citrixadc_sslprofile" "ssl_prof_fe_1213" {
   name = "ssl_prof_${var.adc-base.environmentname}_fe_TLS1213"
 
@@ -254,7 +262,6 @@ resource "citrixadc_sslprofile" "ssl_prof_be_12" {
 #####
 # Save config
 #####
-
 resource "citrixadc_nsconfig_save" "ssl_save" {    
     all       = true
     timestamp = timestamp()
@@ -267,4 +274,17 @@ resource "citrixadc_nsconfig_save" "ssl_save" {
     citrixadc_sslprofile.ssl_prof_fe_13,
     citrixadc_sslprofile.ssl_prof_be_12
   ]
+}
+
+#####
+# Wait a few seconds
+#####
+resource "time_sleep" "ssl_wait_a_few_seconds" {
+
+  create_duration = "15s"
+
+  depends_on = [
+    citrixadc_nsconfig_save.ssl_save
+  ]
+
 }
