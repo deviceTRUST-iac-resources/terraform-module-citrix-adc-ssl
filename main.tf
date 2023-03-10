@@ -278,11 +278,9 @@ resource "citrixadc_nsconfig_save" "ssl_save" {
 # Wait a few seconds
 #####
 resource "time_sleep" "ssl_wait_a_few_seconds" {
-
   create_duration = "15s"
 
   depends_on = [
     citrixadc_nsconfig_save.ssl_save
   ]
-
 }
