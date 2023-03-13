@@ -6,7 +6,7 @@ resource "citrixadc_sslparameter" "ssl_enable_sslprofiles" {
 }
 
 #####
-# SSL Cipher Groups
+# Add SSL Cipher Group Frontend TLS 12+13
 #####
 resource "citrixadc_sslcipher" "ssl_cg_fe_TLS1213" {
   ciphergroupname = "ssl_cg_${var.adc-base.environmentname}_fe_TLS1213"
@@ -45,6 +45,9 @@ resource "citrixadc_sslcipher" "ssl_cg_fe_TLS1213" {
   ]
 }
 
+#####
+# Add SSL Cipher Group Frontend TLS 13
+#####
 resource "citrixadc_sslcipher" "ssl_cg_fe_TLS13" {
   ciphergroupname = "ssl_cg_${var.adc-base.environmentname}_fe_TLS13"
 
@@ -66,6 +69,9 @@ resource "citrixadc_sslcipher" "ssl_cg_fe_TLS13" {
   ]
 }
 
+#####
+# Add SSL Cipher Group Backend TLS 12
+#####
 resource "citrixadc_sslcipher" "ssl_cg_be_TLS12" {
   ciphergroupname = "ssl_cg_${var.adc-base.environmentname}_be_TLS12"
 
@@ -108,7 +114,7 @@ resource "citrixadc_sslcipher" "ssl_cg_be_TLS12" {
 }
 
 #####
-# SSL Profiles
+# Add SSL Profile Frontend TLS 12+13
 #####
 resource "citrixadc_sslprofile" "ssl_prof_fe_1213" {
   name = "ssl_prof_${var.adc-base.environmentname}_fe_TLS1213"
@@ -139,6 +145,9 @@ resource "citrixadc_sslprofile" "ssl_prof_fe_1213" {
   ]
 }
 
+#####
+# Add SSL Profile Frontend TLS 12+13 with SNI
+#####
 resource "citrixadc_sslprofile" "ssl_prof_fe_1213_SNI" {
   name = "ssl_prof_${var.adc-base.environmentname}_fe_TLS1213_SNI"
 
@@ -169,6 +178,9 @@ resource "citrixadc_sslprofile" "ssl_prof_fe_1213_SNI" {
   ]
 }
 
+#####
+# Add SSL Profile Frontend TLS 13
+#####
 resource "citrixadc_sslprofile" "ssl_prof_fe_13" {
   name = "ssl_prof_${var.adc-base.environmentname}_fe_TLS13"
 
@@ -198,6 +210,9 @@ resource "citrixadc_sslprofile" "ssl_prof_fe_13" {
   ]
 }
 
+#####
+# Add SSL Profile Frontend TLS 13 with SNI
+#####
 resource "citrixadc_sslprofile" "ssl_prof_fe_13_SNI" {
   name = "ssl_prof_${var.adc-base.environmentname}_fe_TLS13_SNI"
 
@@ -228,6 +243,9 @@ resource "citrixadc_sslprofile" "ssl_prof_fe_13_SNI" {
   ]
 }
 
+#####
+# Add SSL Profile Backend TLS 12
+#####
 resource "citrixadc_sslprofile" "ssl_prof_be_12" {
   name = "ssl_prof_${var.adc-base.environmentname}_be_TLS12"
 
